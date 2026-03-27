@@ -39,7 +39,7 @@
                     Blog
                 </a>
                 <a 
-                    href="#" 
+                    href="{% url 'blog:portfolio' %}" 
                     class="px-4 py-2 rounded-md text-sm font-medium transition-colors hover:text-indigo-500"
                 >
                     Portfólio
@@ -133,9 +133,9 @@
                 <div>
                     <h4 class="font-semibold text-sm mb-4">Navegação</h4>
                     <div class="flex flex-col gap-3 text-sm">
-                        <a href="#" class="text-muted-foreground hover:text-indigo-500">Início</a>
-                        <a href="#" class="text-muted-foreground hover:text-indigo-500">Blog</a>
-                        <a href="#" class="text-muted-foreground hover:text-indigo-500">Portfólio</a>
+                        <a href="{% url 'blog:index' %}" class="text-muted-foreground hover:text-indigo-500">Início</a>
+                        <a href="{% url 'blog:blog_list' %}" class="text-muted-foreground hover:text-indigo-500">Blog</a>
+                        <a href="{% url 'blog:portfolio' %}" class="text-muted-foreground hover:text-indigo-500">Portfólio</a>
                         <a href="/sobre" class="text-muted-foreground hover:text-indigo-500">Sobre</a>
                         <a href="/contato" class="text-muted-foreground hover:text-indigo-500">Contato</a>
                     </div>

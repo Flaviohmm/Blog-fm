@@ -1,10 +1,9 @@
 /* =============================================
-   input.css - Tailwind v4 para Blog Flavio Macedo
+   input.css - Tailwind v4 + Cores Personalizadas
    ============================================= */
 
 @import "tailwindcss";
 
-/* Ativa dark mode via classe .dark */
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* =============================================
@@ -60,26 +59,42 @@
     --hero-gradient: linear-gradient(135deg, hsl(239 84% 55%), hsl(258 90% 55%));
   }
 
-  /* Aplicação das variáveis */
-  * {
-    border-color: hsl(var(--border));
-  }
-
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
-    font-family: 'Inter', system-ui, sans-serif;
-  }
-
-  html {
-    scroll-behavior: smooth;
   }
 }
 
 /* =============================================
-   Utilities customizadas
+   Utilities Personalizadas - ESSENCIAL
    ============================================= */
 @layer utilities {
+  .bg-background       { background-color: hsl(var(--background)); }
+  .bg-card             { background-color: hsl(var(--card)); }
+  .bg-muted            { background-color: hsl(var(--muted)); }
+
+  .text-foreground       { color: hsl(var(--foreground)); }
+  .text-card-foreground  { color: hsl(var(--card-foreground)); }
+  .text-muted-foreground { color: hsl(var(--muted-foreground)); }
+  .text-primary          { color: hsl(var(--primary)); }
+
+  .border-border         { border-color: hsl(var(--border)); }
+
+  /* Sombras */
+  .shadow-card {
+    box-shadow: 0 4px 24px -4px hsl(239 84% 67% / 0.08);
+  }
+  .shadow-card-hover {
+    box-shadow: 0 8px 32px -4px hsl(239 84% 67% / 0.15);
+  }
+
+  .dark .shadow-card {
+    box-shadow: 0 4px 24px -4px hsl(0 0% 0% / 0.3);
+  }
+  .dark .shadow-card-hover {
+    box-shadow: 0 8px 32px -4px hsl(239 84% 67% / 0.25);
+  }
+
   .text-gradient {
     background-image: var(--hero-gradient);
     -webkit-background-clip: text;
@@ -89,14 +104,6 @@
 
   .bg-hero-gradient {
     background-image: var(--hero-gradient);
-  }
-
-  .shadow-card {
-    box-shadow: 0 4px 24px -4px hsl(239 84% 67% / 0.08);
-  }
-
-  .shadow-card-hover {
-    box-shadow: 0 8px 32px -4px hsl(239 84% 67% / 0.15);
   }
 
   .container {

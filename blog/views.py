@@ -58,4 +58,42 @@ class BlogListView(ListView):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
         return context
-    
+
+
+class PortfolioView(TemplateView):
+    template_name = 'blog/portfolio.html'  
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs) 
+
+        context['projects'] = [
+            {
+                'title': 'dotfiles',
+                'description': 'Minha configuração pessoal para Arch Linux, Hyprland, Neovim e terminal. Totalmente automatizada.',
+                'tags': ['Linux', 'Bash', 'Neovim', 'Dotfiles'],
+                'category': 'Open Source',
+                'github': 'https://github.com/Flaviohm_2/dotfiles',
+                'demo': None
+            },
+            {
+                'title': 'budget-tracker',
+                'description': 'App web para controle financeiro pessoal com categorias, gráficos e exportação CSV.',
+                'tags': ['Django', 'Tailwind', 'Python'],
+                'category': 'Web',
+                'github': 'https://github.com/Flaviohm_2/budget-tracker',
+                'demo': '#'
+            },
+            {
+                'title': 'docker-homelab',
+                'description': 'Stack completa de self-hosting com Docker Compose: Nextcloud, Vaultwarden, Gitea e mais.',
+                'tags': ['Docker', 'Linux', 'Nginx'],
+                'category': 'DevOps',
+                'github': 'https://github.com/Flaviohm_2/homelab',
+                'demo': None
+            },
+            # Adicione mais projetos conforme necessário
+        ]
+
+        context['categories'] = ["Todos", "Open Source", "Web", "DevOps", "CLI"]
+
+        return context
