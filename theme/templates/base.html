@@ -27,13 +27,13 @@
             <!-- Desktop Navigation -->
             <nav class="hidden md:flex items-center gap-1">
                 <a 
-                    href="#"
+                    href="{% url 'blog:index' %}"
                     class="px-4 py-2 rounded-md text-sm font-medium transition-colors hover:text-indigo-500"
                 >
                     Início
                 </a>
                 <a 
-                    href="#" 
+                    href="{% url 'blog:blog_list' %}" 
                     class="px-4 py-2 rounded-md text-sm font-medium transition-colors hover:text-indigo-500"
                 >
                     Blog
