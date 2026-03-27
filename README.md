@@ -61,7 +61,7 @@ if (
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/Flaviohmm/Blog_fm.git
+git clone https://github.com/Flaviohmm/Blog-fm.git
 cd blog_fm
 ```
 
