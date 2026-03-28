@@ -1,7 +1,12 @@
 {% load static tailwind_tags %}
 {% load lucide %}
 <!DOCTYPE html>
-<html lang="pt-br" class="scroll-smooth" x-data="{ darkMode: localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) }" :class="{ 'dark': darkMode }">
+<html lang="pt-br" 
+    class="scroll-smooth" 
+    x-data="{ 
+        darkMode: localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    }" 
+    :class="{ 'dark': darkMode }">
 <head>
     <title>{% block title %}Flavio Macedo - Linux, Tecnologia, Economia{% endblock title %}</title>
     <meta charset="UTF-8">
@@ -49,7 +54,7 @@
             </nav>
 
             <!-- Right side -->
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-3">
                 <!-- GitHub -->
                 <a 
                     href="https://github.com/Flaviohmm" 
@@ -86,29 +91,24 @@
                 </button>
 
                 <!-- Mobile Menu Button -->
-                <button @click="mobileOpen = !mobileOpen" 
-                        class="md:hidden p-2 text-muted-foreground hover:text-foreground">
-                    <svg x-show="!mobileOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                    <svg x-show="mobileOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6h12v12" />
-                    </svg>
+                <button id="mobile-menu-btn"
+                    class="md:hidden p-2 text-muted-foreground hover:text-indigo-500">
+                        {% lucide 'menu' size=24 class="text-muted-foreground hover:text-indigo-600"%}
                 </button>
-            </div>
-
-            <!-- Mobile Menu -->
-            <div x-show="mobileOpen" class="md:hidden border-t border-border/50 bg-background/95 backdrop-blur-xl">
-                <div class="container mx-auto px-6 py-4 flex flex-col gap-2">
-                    <a href="#" @click="mobileOpen = false" class="px-4 py-3 rounded-md text-sm font-medium hover:bg-muted">Início</a>
-                    <a href="#" @click="mobileOpen = false" class="px-4 py-3 rounded-md text-sm font-medium hover:bg-muted">Blog</a>
-                    <a href="#" @click="mobileOpen = false" class="px-4 py-3 rounded-md text-sm font-medium hover:bg-muted">Portfólio</a>
-                    <a href="/sobre" @click="mobileOpen = false" class="px-4 py-3 rounded-md text-sm font-medium hover:bg-muted">Sobre</a>
-                    <a href="/contato" @click="mobileOpen = false" class="px-4 py-3 rounded-md text-sm font-medium hover:bg-muted">Contato</a>
-                </div>
             </div>
         </div>
     </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-border bg-background/95 backdrop-blur-xl">
+        <div class="container mx-auto px-6 py-6 flex flex-col gap-1">
+            <a href="{% url 'blog:index' %}" class="mobile-link px-5 py-4 rounded-2xl text-base font-medium hover:bg-indigo-500">Inicio</a>
+            <a href="{% url 'blog:blog_list' %}" class="mobile-link px-5 py-4 rounded-2xl text-base font-medium hover:bg-indigo-500">Blog</a>
+            <a href="{% url 'blog:portfolio' %}" class="mobile-link px-5 py-4 rounded-2xl text-base font-medium hover:bg-indigo-500">Portfólio</a>
+            <a href="/sobre" class="mobile-link px-5 py-4 rounded-2xl text-base font-medium hover:bg-indigo-500">Sobre</a>
+            <a href="/contato" class="mobile-link px-5 py-4 rounded-2xl text-base font-medium hover:bg-indigo-500">Contato</a>
+        </div>
+    </div>
 
     <!-- MAIN CONTENT -->
     <main class="flex-1">
@@ -185,6 +185,18 @@
         }
     </script>
 
-    {% block extra_scripts %}{% endblock %}
+    {% block extra_scripts %}
+        <script>
+            // Menu Mobile
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileBtn && mobileMenu) {
+                mobileBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        </script>
+    {% endblock %}
 </body>
 </html>
