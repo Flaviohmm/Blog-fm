@@ -84,7 +84,7 @@
 
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {% for topic in topics %}
-            <div class="group bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div class="group bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 hover:shadow-xl hover:shadow-indigo-500 hover:-translate-y-1 transition-all duration-300">
                 <div class="w-12 h-12 flex items-center justify-center bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 rounded-xl mb-6 group-hover:scale-110 transition-transform">
                     <!-- Aqui você pode usar ícones SVG ou Lucide via Heroicons -->
                     {% if topic.icon == 'terminal' %}
@@ -129,7 +129,7 @@
         <div class="grid md:grid-cols-3 gap-8">
             {% for post in featured_posts %}
             <a href="#" 
-               class="group bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+               class="group bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 hover:shadow-xl hover:shadow-indigo-500 hover:-translate-y-1 transition-all duration-300">
                 <span class="text-xs font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
                     {{ post.category }}
                 </span>

@@ -40,7 +40,29 @@ class HomeView(TemplateView):
             },
         ]
 
-        context['featured_posts'] = Post.objects.filter(published_at__isnull=False).order_by('-published_at')[:3]
+        context['featured_posts'] = [
+            {
+                "title": "Por que migrei 100% para Linux em 2026",
+                "category": "Linux",
+                "date": "20 Mar 2026",
+                "read_time": "5 min",
+                "slug": "#"
+            },
+            {
+                "title": "Bitcoin como reserva de valor: uma análise racional",
+                "category": "Economia",
+                "date": "15 Mar 2026",
+                "read_time": "8 min",
+                "slug": "#"
+            },
+            {
+                "title": "Self-hosting: liberdade digital na prática",
+                "category": "Tecnologia",
+                "date": "10 Mar 2026",
+                "read_time": "6 min",
+                "slug": "#"
+            },
+        ]
 
         return context
     

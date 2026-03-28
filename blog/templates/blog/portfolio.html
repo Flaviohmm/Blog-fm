@@ -30,7 +30,7 @@
             {% for category in categories %}
                 <button 
                     onclick="filterProjects('{{ category }}')"
-                    class="filter-btn px-6 py-2.5 text-sm font-medium rounded-2xl border hover:bg-gray-100 dark:hover:bg-indigo-600 transition-colors"
+                    class="filter-btn px-6 py-2.5 text-sm font-medium border border-border rounded-2xl hover:bg-gray-100 dark:hover:bg-indigo-600 transition-colors"
                 >
                     {{ category }}
                 </button>
@@ -40,7 +40,7 @@
         <!-- Grid de Projetos -->
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="projects-grid">
             {% for project in projects %}
-                <div class="project-card group bg-white dark:bg-gray-950 border rounded-3xl shadow shadow-indigo-500 p-7 transition-al transition-all duration-300 hover:-translate-y-1 flex flex-col">
+                <div class="project-card group bg-white dark:bg-gray-950 border border-border rounded-3xl shadow shadow-indigo-500 hover:shadow-xl hover:shadow-indigo-500 p-7 transition-al transition-all duration-300 hover:-translate-y-1 flex flex-col">
 
                     <span class="inline-block px-4 py-1 text-xs font-medium 
                                 bg-indigo-100 dark:bg-gray-900
