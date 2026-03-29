@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load lucide %}
+
+{% block title %}Contato - Flavio Macedo{% endblock title %}
+
+{% block content %}
+    <div class="container mx-auto px-6 py-16 max-w-2xl">
+
+        {% if messages %}
+            <div class="mb-8">
+                {% for message in messages %}
+                    <div class="p-4 rounded-2xl {% if message.tags == 'success' %}bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200{% else %}bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200{% endif %}" >
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="mb-10">
+            <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">Contato</h1>
+            <p class="mt-2 text-muted-foreground">Tem alguma pergunta, sugestão ou quer colaborar? Entre em contato.</p>
+        </div>
+
+        <!-- Formulário -->
+        <form method="post" action="{% url 'blog:contato' %}" class="space-y-6">
+            {% csrf_token %}
+
+            <div class="grid sm:grid-cols-2 gap-6">
+                <div>
+                    <label class="text-sm font-medium mb-1.5 block text-foreground">Nome</label>
+                    <input type="text" name="name" required
+                        class="w-full px-4 py-3 bg-background border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary"
+                        placeholder="Seu nome">
+                </div>
+                <div>
+                    <label class="text-sm font-medium mb-1.5 block text-foreground">Email</label>
+                    <input type="email" name="email" required
+                        class="w-full px-4 py-3 bg-background border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary"
+                        placeholder="seu@email.com">
+                </div>
+            </div>
+
+            <div>
+                <label class="text-sm font-medium mb-1.5 block text-foreground">Mensagem</label>
+                <textarea name="message" rows="6" required
+                    class="w-full px-4 py-3 bg-background border border-border rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+                    placeholder="Escreva sua mensagem...">
+                </textarea>
+            </div>
+
+            <button type="submit"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-linear-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-semibold text-lg px-8 py-4 rounded-2xl transition-all">
+                    <span>Enviar mensagem</span>
+                    {% lucide 'send' size=20 %}
+            </button>
+        </form>
+
+        <!-- Outras formas de contato -->
+        <div class="mt-16 pt-8 border-t border-border">
+            <h2 class="text-xl font-bold mb-6 text-foreground">Outras formas de contato</h2>
+            <div class="flex flex-wrap gap-4">
+                <a href="https://x.com/Flaviohm_2" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-3 rounded-2xl border border-border bg-card px-6 py-4 hover:shadow-md transition-all">
+                    {% lucide 'x' size=20 %}
+                    <span class="font-medium">@Flaviohm_2</span>
+                </a>
+
+                <a href="https://github.com/Flaviohmm" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-3 rounded-2xl border border-border bg-card px-6 py-4 hover:shadow-md transition-all">
+                    {% lucide 'github' size=20 %}
+                    <span class="font-medium">GitHub</span>
+                </a>
+
+                <a href="mailto:fhenrique609@gmail.com"
+                class="inline-flex items-center gap-3 rounded-2xl border border-border bg-card px-6 py-4 hover:shadow-md transition-all">
+                    {% lucide 'mail' size=20 %}
+                    <span class="font-medium">Email</span>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

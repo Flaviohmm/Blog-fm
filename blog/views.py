@@ -1,8 +1,10 @@
 from typing import Any
 
 from django.db.models.query import QuerySet
-from django.views.generic import TemplateView, ListView
-from django.shortcuts import render
+from django.http import HttpRequest, HttpResponse
+from django.views.generic import TemplateView, ListView, FormView
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from .models import Post, Category
 
 
@@ -157,3 +159,18 @@ class AboutView(TemplateView):
         ]
 
         return context
+    
+
+class ContatoView(TemplateView):
+    template_name = 'contato.html'
+
+    def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+        name = request.POST.get('name', '').strip()
+        email = request.POST.get('email', '').strip()
+        message = request.POST.get('message', '').strip()
+
+        if name and email and message:
+            messages.success(request, "Mensagem enviada com sucesso! Obrigado pelo contato. Responderei em breve.")
+        else:
+            messages.error(request, "Por favor, preencha todos os campos.")
+        return redirect('blog:contato')

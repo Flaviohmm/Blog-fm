@@ -8,4 +8,5 @@ urlpatterns = [
     path("blog/", views.BlogListView.as_view(), name="blog_list"),
     path("portfolio/", views.PortfolioView.as_view(), name="portfolio"),
     path("sobre/", views.AboutView.as_view(), name="about"),
+    path("contato/", views.ContatoView.as_view(), name='contato'),
 ]
