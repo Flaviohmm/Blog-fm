@@ -121,4 +121,15 @@
             event.currentTarget.classList.add('active', 'bg-indigo-600', 'text-white');
         }
     </script>
+    <script>
+        // Menu Mobile
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
 {% endblock extra_scripts %}

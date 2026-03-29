@@ -69,7 +69,7 @@ class HomeView(TemplateView):
 
 class BlogListView(ListView):
     model = Post
-    template_name = 'blog/blog_list.html'
+    template_name = 'blog_list.html'
     context_object_name = 'posts'
     paginate_by = 9
 
@@ -83,7 +83,7 @@ class BlogListView(ListView):
 
 
 class PortfolioView(TemplateView):
-    template_name = 'blog/portfolio.html'  
+    template_name = 'portfolio.html'  
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs) 
