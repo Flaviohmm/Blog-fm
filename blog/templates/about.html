@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load lucide %}
+
+{% block title %}Sobre - Flavio Macedo{% endblock title %}
+
+{% block content %}
+    <div class="container mx-auto px-6 py-16 max-w-5xl">
+
+        <div class="grid md:grid-cols-3 gap-12">
+
+            <!-- Sidebar / Perfil -->
+            <div class="md:col-span-1">
+                <div class="sticky top-24 space-y-6">
+                    <!-- Avatar -->
+                    <div class="w-32 h-32 rounded-3xl bg-linear-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-5xl font-extrabold text-white shadow-xl">
+                        FM
+                    </div>
+
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Flavio Macedo</h1>
+                        <p class="text-muted-foreground">Entusiasta de tecnologia</p>
+                        <p class="text-muted-foreground flex items-center gap-1">
+                            Brasil <span class="text-lg">🇧🇷</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conteúdo Principal -->
+            <div class="md:col-span-2 space-y-12">
+
+                <!-- Sobre mim -->
+                <section>
+                    <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Sobre mim</h2>
+                    <div class="prose dark:prose-invert max-w-none text-muted-foreground leading-relaxed space-y-5">
+                        <p>
+                            Sou um entusiasta brasileiro de tecnologia com paixão por Linux, software livre e sistemas.
+                            Passo meus dias explorando novas ferramentas, automatizando fluxos de trabalho e aprendendo
+                            sobre o que realmente move o mundo da economia à política.
+                        </p>
+                        <p>
+                            Este blog é meu espaço para compartilhar pensamentos, tutoriais e análise sobre os temas 
+                            que me fascinam: da configuração perfeita do Neovim até a teoria econômica austríaca.
+                        </p>
+                        <p>
+                            Acredito que a tecnologia e o pensamento crítico são as melhores ferramentas para construir
+                            um futuro mais livre e próspero.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Valores & Interesses -->
+                <section>
+                    <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Valores & Interesses</h2>
+                    <div class="grid sm:grid-cols-2 gap-6">
+                        {% for value in values %}
+                            <div class="rounded-3xl border border-border bg-card p-6 hover:shadow-md hover:shadow-indigo-500 transition-shadow">
+                                <div class="w-10 h-10 flex items-center justify-center bg-primary/10 text-primary rounded-2xl mb-4">
+                                    <!-- Ícones Lucide -->
+                                    {% if value.icon == 'Terminal' %}
+                                        {% lucide 'terminal' size=24 %}
+                                    {% elif value.icon == 'BookOpen' %}
+                                        {% lucide 'book-open' size=24 %}
+                                    {% elif value.icon == 'Shield' %}
+                                        {% lucide 'shield' size=24 %}
+                                    {% elif value.icon == 'Heart' %}
+                                        {% lucide 'heart' size=24 %}
+                                    {% endif %}
+                                </div>
+                                <h3 class="font-semibold text-lg mb-2">{{ value.label }}</h3>
+                                <p class="text-muted-foreground text-[15px] leading-relaxed">
+                                    {{ value.text }}
+                                </p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </section>
+
+                <!-- Stack & Ferramentas -->
+                <section>
+                    <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Stack & Ferramentas</h2>
+                    <div class="flex flex-wrap gap-2">
+                        {% for tool in tools %}
+                            <span class="px-4 py-2 bg-muted text-indigo-700 dark:text-indigo-400 text-sm rounded-2xl">
+                                {{ tool }}
+                            </span>
+                        {% endfor %}
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

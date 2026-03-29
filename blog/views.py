@@ -119,3 +119,41 @@ class PortfolioView(TemplateView):
         context['categories'] = ["Todos", "Open Source", "Web", "DevOps", "CLI"]
 
         return context
+    
+
+class AboutView(TemplateView):
+    template_name = 'about.html'
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+
+        context['values'] = [
+            {
+                "icon": "Terminal",
+                "label": "Open Source",
+                "text": "Acredito que software deve ser livre e acessível. Contribuo e uso Linux diariamente."
+            },
+            {
+                "icon": "BookOpen",
+                "label": "Pensamento Crítico",
+                "text": "Questionar é fundamental. Busco entender os 'porquês' antes de aceitar qualquer narrativa."
+            },
+            {
+                "icon": "Shield",
+                "label": "Privacidade Digital",
+                "text": "Seus dados são seus. Defendo e pratico hábitos de privacidade digital no dia a dia."
+            },
+            {
+                "icon": "Heart",
+                "label": "Liberdade Individual",
+                "text": "Menos estado, mais liberdade. Acredito no poder da ação individual e do livre mercado."
+            },
+        ]
+
+        context['tools'] = [
+            "Arch Linux", "Neovim", "Docker", "Rust", "Python", 
+            "TypeScript", "React", "Next.js", "Tailwind CSS", 
+            "Git", "Nginx", "PostgreSQL"
+        ]
+
+        return context
