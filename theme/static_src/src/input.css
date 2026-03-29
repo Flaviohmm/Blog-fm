@@ -109,6 +109,12 @@
   .container {
     @apply mx-auto max-w-7xl px-6;
   }
+  .alert-success {
+    @apply bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-950 dark:border-emerald-800 dark:text-emerald-100;
+  }
+  .alert-error {
+    @apply bg-red-50 border-red-200 text-red-800 dark:bg-red-950 dark:border-red-800 dark:text-red-100;
+  }
 }
 
 /* Fontes */
