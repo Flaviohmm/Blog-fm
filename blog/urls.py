@@ -9,4 +9,5 @@ urlpatterns = [
     path("portfolio/", views.PortfolioView.as_view(), name="portfolio"),
     path("sobre/", views.AboutView.as_view(), name="about"),
     path("contato/", views.ContatoView.as_view(), name='contato'),
+    path("blog/<slug:slug>/", views.PostDetailView.as_view(), name="post_detail"),
 ]

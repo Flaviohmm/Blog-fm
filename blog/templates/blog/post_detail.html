@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load lucide %}
+
+{% block title %}{{ post.title }} - Flavio Macedo{% endblock title %}
+
+{% block content %}
+    <article class="container mx-auto px-6 py-12 md:py-16 max-w-3xl">
+
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-sm text-muted-foreground mb-8">
+            <a href="{% url 'blog:blog_list' %}" class="hover:text-foreground transition-colors">Blog</a>
+            <span class="text-gray-300 dark:text-gray-600">›</span>
+            <span class="text-foreground font-medium">{{ post.category.name }}</span>
+        </nav>
+
+        <!-- Header do Post -->
+        <header class="mb-12">
+            <span class="inline-block px-4 py-1.5 text-xs font-medium bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-full">
+                {{ post.category.name }}
+            </span>
+
+            <h1 class="mt-6 text-4xl md:text-5xl font-bold tracking-tight leading-tight text-gray-900 dark:text-white">
+                {{ post.title }}
+            </h1>
+
+            <p class="mt-6 text-lg text-muted-foreground leading-relaxed">
+                {{ post.excerpt }}
+            </p>
+
+            <div class="mt-8 flex items-center gap-6 text-sm text-muted-foreground">
+                <span>{{ post.published_at|date:"d \d\e F \d\e Y"}}</span>
+                <span class="flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 01-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    {{ post.read_time }} min de leitura
+                </span>
+            </div>
+
+            <div class="mt-6 flex flex-wrap gap-2">
+                {% for tag in post.tags.all %}
+                    <span class="text-xs px-3 py-1 bg-muted text-muted-foreground rounded-full">
+                        #{{ tag.name }}
+                    </span>
+                {% endfor %}
+            </div>
+        </header>
+
+        <div class="flex flex-col lg:flex-row gap-12">
+
+            <!-- Conteúdo Principal -->
+            <div class="flex-1 prose prose-lg dark:prose-invert max-w-none">
+                {{ post.content|safe }}
+            </div>
+
+            <!-- Sidebar - Table of Contents -->
+            {% if toc %}
+                <aside class="hidden lg:block w-64 shrink-0">
+                    <div class="sticky top-24">
+                        <h4 class="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">
+                            Neste artigo
+                        </h4>
+                        <nav class="space-y-1 text-sm">
+                            {% for item in toc %}
+                                <a href="{{ item.id }}"
+                                    class="block py-1 border-l-2 pl-3 transition-colors hover:text-foreground
+                                        {% if item.level == 3 %}pl-6{% endif %}
+                                        {% if item.active %}
+                                            border-primary text-primary font-medium
+                                        {% else %}
+                                            border-transparent text-muted-foreground
+                                        {% endif %}
+                                ">
+                                    {{ item.text }}
+                                </a>
+                            {% endfor %}
+                        </nav>
+                    </div>
+                </aside>
+            {% endif %}
+        </div>
+
+        <!-- Compartilhamento -->
+        <div class="mt-16 pt-10 border-t border-border">
+            <h3 class="text-sm font-semibold mb-4 flex items-center gap-2">
+                <span>Compartilhar este artigo</span>
+            </h3>
+            <div class="flex flex-wrap gap-3">
+                <a href="https://twitter.com/intent/tweet?text={{ post.title|urlencode }}&url={{ request.build_absolute_uri|urlencode }}" 
+                    target="_blank" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-border hover:bg-muted">
+                    {% lucide 'twitter' size=18 %} Twitter
+                </a>
+                <button onclick="copyToClipboard()" 
+                        class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-border hover:bg-muted">
+                    {% lucide 'link' size=18 %} Copiar link
+                </button>
+            </div>
+        </div>
+
+        <!-- Voltar -->
+        <div class="mt-12">
+            <a href="{% url 'blog:blog_list' %}" 
+            class="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                ← Voltar ao Blog
+            </a>
+        </div>
+
+    </article>
+{% endblock content %}
+
+{% block extra_scripts %}
+    <script>
+        function copyToClipboard() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert("Link copiado para a área de transferencia!");
+            });
+        }
+    </script>
+    <script>
+        // Menu Mobile
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+{% endblock extra_scripts %}

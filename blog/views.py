@@ -1,8 +1,10 @@
 from typing import Any
 
+from django.db.models import Model
 from django.db.models.query import QuerySet
 from django.http import HttpRequest, HttpResponse
-from django.views.generic import TemplateView, ListView, FormView
+from django.utils.text import slugify
+from django.views.generic import TemplateView, ListView, DetailView
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Post, Category
@@ -174,3 +176,49 @@ class ContatoView(TemplateView):
         else:
             messages.error(request, "Por favor, preencha todos os campos.")
         return redirect('blog:contato')
+    
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'blog/post_detail.html'
+    context_object_name = 'post'
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
+
+    def get_object(self, queryset = None):
+        obj = super().get_object(queryset)
+        obj.views += 1
+        obj.save(update_fields=['views'])
+        return obj
+    
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+
+        # Gerar Table od Contents
+        context['toc'] = self.generate_toc(self.object.content)
+
+        # Posts relacionados
+        context['related_posts'] = Post.objects.filter(
+            category=self.object.category
+        ).exclude(id=self.object.id).order_by('-published_at')[:3]
+
+        return context
+    
+    def generate_toc(self, markdown_content):
+        """Gera Table of Contents a partir do conteúdo Markdown"""
+        import re
+        toc = []
+        lines = markdown_content.split('\n')
+        for line in lines:
+            match = re.match(r'^(#{2,3})\s+(.+)', line.strip())
+            if match:
+                level = len(match.group(1))
+                text = match.group(2).strip()
+                # Gera ID compativel com HTML
+                id_slug = slugify(text)
+                toc.append({
+                    'id': id_slug,
+                    'text': text,
+                    'level': level
+                })
+        return toc
