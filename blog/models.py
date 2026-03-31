@@ -47,7 +47,7 @@ class Tag(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
-    content = CKEditor5Field('Conteúdo', config_name='default')
+    content = CKEditor5Field('Conteúdo', config_name='extends')
     excerpt = models.TextField(blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag, blank=True)

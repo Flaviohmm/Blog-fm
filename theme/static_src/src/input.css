@@ -115,6 +115,29 @@
   .alert-error {
     @apply bg-red-50 border-red-200 text-red-800 dark:bg-red-950 dark:border-red-800 dark:text-red-100;
   }
+
+  /* Forçar listas do CKEditor */
+  .prose ul,
+  .prose ul li {
+      list-style-type: disc !important;
+      padding-left: 1.75rem !important;
+  }
+
+  .prose ol,
+  .prose ol li {
+      list-style-type: decimal !important;
+      padding-left: 1.75rem !important;
+  }
+
+  .prose li p {
+      margin: 0 !important;
+      display: inline !important;
+  }
+
+  /* Remover estilos inline problemáticos */
+  .prose [style*="margin-left"] {
+      margin-left: 0 !important;
+  }
 }
 
 /* Fontes */
