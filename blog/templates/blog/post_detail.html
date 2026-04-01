@@ -13,7 +13,7 @@
 
         <!-- Breadcrumb -->
         <nav class="flex items-center gap-2 text-sm text-muted-foreground mb-8">
-            <a href="{% url 'blog:blog_list' %}" class="hover:text-foreground transition-colors">Blog</a>
+            <a href="{% url 'blog:blog_list' %}" class="hover:text-indigo-500 transition-colors">Blog</a>
             <span class="text-gray-300 dark:text-gray-600">›</span>
             <span class="text-foreground font-medium">{{ post.category.name }}</span>
         </nav>
@@ -100,11 +100,11 @@
             </h3>
             <div class="flex flex-wrap gap-3">
                 <a href="https://twitter.com/intent/tweet?text={{ post.title|urlencode }}&url={{ request.build_absolute_uri|urlencode }}" 
-                    target="_blank" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-border hover:bg-muted">
+                    target="_blank" class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-border hover:bg-muted hover:text-indigo-500">
                     {% lucide 'twitter' size=18 %} Twitter
                 </a>
                 <button onclick="copyToClipboard()" 
-                        class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-border hover:bg-muted">
+                        class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-border hover:bg-muted hover:text-indigo-500">
                     {% lucide 'link' size=18 %} Copiar link
                 </button>
             </div>
@@ -113,7 +113,7 @@
         <!-- Voltar -->
         <div class="mt-12">
             <a href="{% url 'blog:blog_list' %}" 
-            class="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground">
+            class="inline-flex items-center gap-2 text-muted-foreground hover:text-indigo-500">
                 ← Voltar ao Blog
             </a>
         </div>
