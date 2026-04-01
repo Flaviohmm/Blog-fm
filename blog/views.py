@@ -62,7 +62,7 @@ class BlogListView(ListView):
     
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
+        context['categories'] = Category.objects.all().order_by('name')
         return context
 
 

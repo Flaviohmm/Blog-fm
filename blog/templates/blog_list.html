@@ -36,24 +36,32 @@
 
             <!-- Categorias -->
             <div class="flex flex-wrap gap-2" id="category-filters">
-                <button onclick="filterByCategory('Todos')" class="category-btn active px-5 py-2.5 text-sm font-medium rounded-2xl bg-indigo-600 text-white">
-                    Todos
+                <button 
+                    onclick="filterByCategory('all')" 
+                    data-category="all"
+                    class="category-btn active px-5 py-2.5 text-sm font-medium rounded-2xl bg-indigo-600 text-white">
+                        Todos
                 </button>
+
                 {% for cat in categories %}
                     <button 
                         onclick="filterByCategory('{{ cat.slug }}')"
+                        data-category="{{ cat.slug }}"
                         class="category-btn px-5 py-2.5 text-sm font-medium rounded-2xl border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                     >
                         {{ cat.name }}
                     </button>
                 {% endfor %}
             </div>
+
         </div>
 
         <!-- Lista de Posts -->
         <div class="grid gap-6" id="posts-container">
             {% for post in posts %}
-                <article class="post-card group bg-muted border border-gray-200 dark:border-gray-700 rounded-3xl p-7 hover:shadow-xl dark:hover:shadow-indigo-500 transition-all duration-300 hover:-translate-y-1">
+                <article class="post-card group bg-muted border border-gray-200 dark:border-gray-700 rounded-3xl p-7 hover:shadow-xl dark:hover:shadow-indigo-500 transition-all duration-300 hover:-translate-y-1"
+                    data-category="{{ post.category.slug|default:''|lower }}" >
+
                     <div class="flex flex-col md:flex-row md:items-start gap-6">
                         <div class="flex-1">
                             <span class="inline-block px-3 py-1 text-xs font-medium bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-full">
@@ -97,29 +105,54 @@
 
 {% block extra_scripts %}
     <script>
+        // Filtro combinado: Busca + Categoria (versão mais robusta)
         function filterPosts() {
-            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const searchTerm = document.getElementById('search-input').value.toLowerCase().trim();
+            
+            const activeBtn = document.querySelector('.category-btn.active');
+            let activeCategory = activeBtn ? activeBtn.getAttribute('data-category') : 'all';
+            
+            // Normaliza para comparação segura
+            activeCategory = activeCategory.toLowerCase().trim();
+
             const cards = document.querySelectorAll('.post-card');
 
             cards.forEach(card => {
-                const title = card.querySelector('h2').textContent.toLowerCase();
+                const title = card.querySelector('h2 a').textContent.toLowerCase();
                 const excerpt = card.querySelector('p').textContent.toLowerCase();
-                if (title.includes(searchTerm) || excerpt.includes(searchTerm)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
+                let cardCategory = card.getAttribute('data-category') || '';
+                cardCategory = cardCategory.toLowerCase().trim();
+
+                const matchesSearch = !searchTerm || 
+                                    title.includes(searchTerm) || 
+                                    excerpt.includes(searchTerm);
+
+                const matchesCategory = (activeCategory === 'all') || (cardCategory === activeCategory);
+
+                card.style.display = (matchesSearch && matchesCategory) ? 'block' : 'none';
             });
         }
 
-        function filterByCategory(category) {
+        function filterByCategory(categorySlug) {
+            // Remove active de todos
             document.querySelectorAll('.category-btn').forEach(btn => {
                 btn.classList.remove('active', 'bg-indigo-600', 'text-white');
-                btn.classList.add('border-gray-200', 'dark:border-gray-700');
             });
 
-            event.currentTarget.classList.add('active', 'bg-indigo-600', 'text-white');
+            // Ativa o botão clicado
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                if (btn.getAttribute('data-category') === categorySlug) {
+                    btn.classList.add('active', 'bg-indigo-600', 'text-white');
+                }
+            });
+
+            filterPosts();
         }
+
+        // Inicializa ao carregar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            filterPosts();
+        });
     </script>
     <script>
         // Menu Mobile
